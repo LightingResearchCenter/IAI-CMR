@@ -1,4 +1,4 @@
-function hAxes = millerWithOverlay(millerTime,label1,data1,label2,data2,label3,data3,varargin)
+function hAxes = custommiller(millerTime,label1,data1,label2,data2,label3,data3,varargin)
 %MILLER Summary of this function goes here
 %   Detailed explanation goes here
 % See also MILLERIZE.MILLERIZE
@@ -45,6 +45,9 @@ switch quality
         [hAxes,h1(1),h2] = displayFormatting(hAxes,h1(1),h2,h1(2));
 end
 
+% Bring data3 to front
+h1(2).ZData = 2*ones(size(h1(2).XData));
+
 % Create and format the legend.
 % legendflex([h1,h2],{label1,label2},'anchor',[2 6],'buffer',[0 10],'ncol',2,'padding',[0 1 10]);
 legendflex([h1(1),h2,h1(2)],{label1,label2,label3},'anchor',[6 2],'buffer',[0 -45],'ncol',2,'padding',[0 1 10]);
@@ -76,11 +79,11 @@ set(h2,'DisplayName',label2);
 
 % Format x-axis
 xTick = 0:24;
-xTickLabel = {'00:00','','','','','',...
-              '06:00','','','','','',...
-              '12:00','','','','','',...
-              '18:00','','','','','',...
-              '24:00'};
+xTickLabel = { '0','','2','', '4','',...
+               '6','', '8','','10','',...
+              '12','','14','','16','',...
+              '18','','20','','22','',...
+              '24'};
 set(hAxes(1),'XLim',[0,24]);
 set(hAxes(2),'XLim',[0,24]);
 % Ticks and labels on first x-axis.
@@ -90,7 +93,7 @@ set(hAxes(1),'XTickLabel',xTickLabel);
 set(hAxes(2),'XTick',[]);
 set(hAxes(2),'XTickLabel','');
 % Label x-axis
-xlabel(hAxes(1),'Time');
+xlabel(hAxes(1),'Hours from Reference \phi');
 
 % Format y-axes
 yTick = 0:0.1:0.7;
@@ -110,6 +113,11 @@ ylabel(hAxes(2),label2);
 end
 
 function [hAxes,h1,h2] = displayFormatting(hAxes,h1,h2,h3)
+blue   = [0.000 0.447 0.741];
+orange = [0.850 0.325 0.098];
+yellow = [0.929 0.694 0.125];
+purple = [0.494 0.184 0.556];
+
 % Format data1
 set(h1,'Color',[180, 211, 227]/256);
 set(h1,'LineWidth',2);
@@ -120,7 +128,8 @@ set(h2,'Color',[0,0,0]);
 set(h2,'LineWidth',2);
 
 % Format data3
-set(h3,'Color',[180, 211, 227]/256);
+set(h3,'Color',orange);
+set(h3,'LineWidth',2);
 end
 
 function [hAxes,h1,h2] = exportFormatting(hAxes,h1,h2)

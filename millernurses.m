@@ -11,7 +11,8 @@ import('millerize.*');
 
 populationName = 'Day Shift Nurses';
 
-nursesDir = '\\ROOT\projects\DaysimeterAndDimesimeterReferenceFiles\Nurses study\raw data';
+% nursesDir = '\\ROOT\projects\DaysimeterAndDimesimeterReferenceFiles\Nurses study\raw data';
+nursesDir = 'nurseData';
 
 DataArray = importdaynursesdir(nursesDir);
 
