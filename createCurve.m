@@ -71,12 +71,16 @@ cs = cs(sortIdx);
 ai = ai(sortIdx);
 idealSpline = idealSpline(sortIdx);
 
+%% Export formula
+coefficients = coeffvalues(splineFit);
+save([outputFileName,'_formula.mat'],'splineFit','coefficients');
+
 %% Export data
 outputStruct = struct;
-outputStruct.minutes_from_reference = t2.minutes(:);
+outputStruct.minutes_from_reference_phi = t2.minutes(:);
 outputStruct.reference_CS = idealSpline(:);
 outputCell = dataset2cell(struct2dataset(outputStruct));
-xlswrite([outputFileName,'.xlsx'],outputCell);
+xlswrite([outputFileName,'_numeric.xlsx'],outputCell);
 
 %% Execute plot
 hFigure = initfig(1,'on');
@@ -84,7 +88,7 @@ hAxes = custommiller(t2,label1,cs,label2,ai,label3,idealSpline);
 title('Day-Shift Nurses, n = 45');
 
 %% Save plot to file
-saveas(hFigure,[outputFileName,'.pdf']);
+saveas(hFigure,[outputFileName,'_plot.pdf']);
 
 
 
