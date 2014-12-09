@@ -18,3 +18,7 @@ slprj/
 
 # Ignore PDFs
 *.pdf
+
+# Ignore MS Excel files
+*.xls
+*.xlsx
